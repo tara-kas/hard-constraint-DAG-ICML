@@ -43,7 +43,7 @@ Run: python prepare_mimic_notes.py --mimic_root /path/to/file --icd9_snomed_map 
 
 This will give you notes_snomed.csv
 
-# Building SNOMED-DAG
+# 2. Building SNOMED-DAG
 The first step is to parse RF2 and build:
     snomed_idx.json: mapping SNOMED concept ID (string) -> node index (int)
     snomed_adj.json: adjacency dict parent_index (int) -> [child_indices]
@@ -53,7 +53,7 @@ Run snomed_dag.py with arg --rf2_root {path to file}
 ie. python snomed_dag.py --rf2_root /path/to/file
 
 
-# Classification Pipeline
+# 3. Classification Pipeline
 Once you have snomed_idx.json, snomed_adj.json, notes_snomed.csv, run:
 
 python3 train_eval.py \
@@ -72,7 +72,7 @@ python3 train_eval.py \
   --batch_size 8 \
   --lr 2e-5
 
-# File Overview
+# 4. File Overview
 - dag_projection.py
     PyTorch implementation of the hard-constraint DAG projection (DAGProjection, DAGConstraintLayer).
 
