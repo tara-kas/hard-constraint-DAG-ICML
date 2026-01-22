@@ -21,6 +21,7 @@ Steps:
 1. Create an account and accept the SNOMED CT license via your national release center or SNOMED International portal.
 2. Download the International Edition in RF2 format (Full/Snapshot/Delta).
 3. Unzip so you have a structure like:
+
     SnomedCT_InternationalRF2_PRODUCTION_20260101T120000Z/
         Snapshot/
             Terminology/
@@ -37,20 +38,20 @@ Steps:
 1. Request access to MIMIC-III via PhysioNet (complete the training + data use agreement).
 2. After approval, download the CSV bundle and extract it:
     You need NOTEEVENTS.csv and DIAGNOSES_ICD.csv from MIMIC-III
-    You will also need a simple ICD9 → SNOMED mapping, and name it icd9_to_snomed.csv: [mapping](https://www.nlm.nih.gov/research/umls/mapping_projects/icd9cmv3_to_snomedct.html)
+    You will also need a simple ICD9 → SNOMED mapping, and name it icd9_to_snomed.csv: [mapping](https://www.nlm.nih.gov/research/umls/mapping_projects/icd9cmv3_to_snomedct.html) or try [here](https://athena.ohdsi.org/search-terms/start)
 
 Run: python prepare_mimic_notes.py --mimic_root /path/to/file --icd9_snomed_map /path/to/file
 
 This will give you notes_snomed.csv
 
 # 2. Building SNOMED-DAG
-The first step is to parse RF2 and build:
-    snomed_idx.json: mapping SNOMED concept ID (string) -> node index (int)
+The first step is to parse RF2 and build:\
+    snomed_idx.json: mapping SNOMED concept ID (string) -> node index (int)\
     snomed_adj.json: adjacency dict parent_index (int) -> [child_indices]
 
-2.1 snomed_dag.py
-Run snomed_dag.py with arg --rf2_root {path to file}
-ie. python snomed_dag.py --rf2_root /path/to/file
+2.1 snomed_dag.py\
+Run snomed_dag.py with arg --rf2_root {path to file}\
+ie. python snomed_dag.py --rf2_root /path/to/file\
 
 
 # 3. Classification Pipeline
@@ -73,17 +74,17 @@ python3 train_eval.py \
   --lr 2e-5
 
 # 4. File Overview
-- dag_projection.py
+- dag_projection.py\
     PyTorch implementation of the hard-constraint DAG projection (DAGProjection, DAGConstraintLayer).
 
-- snomed_dag.py
+- snomed_dag.py\
     Parses SNOMED CT RF2 and creates snomed_idx.json and snomed_adj.json.
 
-- dataset.py
+- dataset.py\
     ClinicalNotesDataset for (text, concept_ids) pairs and a simple collate function.
 
-- model.py
+- model.py\
     TextDAGClassifier which combines a transformer encoder, linear classifier, and DAGConstraintLayer.
 
-- train_eval.py
+- train_eval.py\
     End-to-end training and evaluation: trains the model, computes F1 and violation rate.
