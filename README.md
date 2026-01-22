@@ -23,22 +23,22 @@ Steps:
 3. Unzip so you have a structure like:
 
     SnomedCT_InternationalRF2_PRODUCTION_20260101T120000Z/\
-        Snapshot/\
-            Terminology/\
-            sct2_Concept_Snapshot_*.txt\
-            sct2_Relationship_Snapshot_*.txt\
-            ...\
-        Full/\
-        Delta/\
+    \t    Snapshot/\
+    \t\t        Terminology/\
+    \t\t        sct2_Concept_Snapshot_*.txt\
+    \t\t        sct2_Relationship_Snapshot_*.txt\
+    \t\t        ...\
+    \t    Full/\
+    \t    Delta/
 
     This repo only uses the Snapshot/Terminology file
 
 1.2 MIMIC-III clinical notes
 Steps: 
 1. Request access to MIMIC-III via PhysioNet (complete the training + data use agreement).
-2. After approval, download the CSV bundle and extract it:
-    You need NOTEEVENTS.csv and DIAGNOSES_ICD.csv from MIMIC-III
-    You will also need a simple ICD9 → SNOMED mapping, and name it icd9_to_snomed.csv: [mapping](https://www.nlm.nih.gov/research/umls/mapping_projects/icd9cmv3_to_snomedct.html) or try [here](https://athena.ohdsi.org/search-terms/start)
+2. After approval, download the CSV bundle and extract it:\
+    \tYou need NOTEEVENTS.csv and DIAGNOSES_ICD.csv from MIMIC-III
+    \tYou will also need a simple ICD9 → SNOMED mapping, and name it icd9_to_snomed.csv: [mapping](https://www.nlm.nih.gov/research/umls/mapping_projects/icd9cmv3_to_snomedct.html) or try [here](https://athena.ohdsi.org/search-terms/start)
 
 Run: python prepare_mimic_notes.py --mimic_root /path/to/file --icd9_snomed_map /path/to/file
 
@@ -46,8 +46,8 @@ This will give you notes_snomed.csv
 
 # 2. Building SNOMED-DAG
 The first step is to parse RF2 and build:\
-    snomed_idx.json: mapping SNOMED concept ID (string) -> node index (int)\
-    snomed_adj.json: adjacency dict parent_index (int) -> [child_indices]
+    \tnomed_idx.json: mapping SNOMED concept ID (string) -> node index (int)\
+    \tsnomed_adj.json: adjacency dict parent_index (int) -> [child_indices]
 
 2.1 snomed_dag.py\
 Run snomed_dag.py with arg --rf2_root {path to file}\
