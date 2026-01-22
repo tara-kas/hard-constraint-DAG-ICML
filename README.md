@@ -22,14 +22,14 @@ Steps:
 2. Download the International Edition in RF2 format (Full/Snapshot/Delta).
 3. Unzip so you have a structure like:
 
-    SnomedCT_InternationalRF2_PRODUCTION_20260101T120000Z/
-        Snapshot/
-            Terminology/
-            sct2_Concept_Snapshot_*.txt
-            sct2_Relationship_Snapshot_*.txt
-            ...
-        Full/
-        Delta/
+    SnomedCT_InternationalRF2_PRODUCTION_20260101T120000Z/\
+        Snapshot/\
+            Terminology/\
+            sct2_Concept_Snapshot_*.txt\
+            sct2_Relationship_Snapshot_*.txt\
+            ...\
+        Full/\
+        Delta/\
 
     This repo only uses the Snapshot/Terminology file
 
